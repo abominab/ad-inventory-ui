@@ -118,7 +118,7 @@ export function ProductFilters({ filters, onFiltersChange }: ProductFiltersProps
             step="0.01"
             value={filters.maxPrice || ''}
             onChange={handleMaxPriceChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700"
           />
         </div>
         
@@ -130,7 +130,7 @@ export function ProductFilters({ filters, onFiltersChange }: ProductFiltersProps
             id="stock-filter"
             value={filters.inStock === undefined ? '' : filters.inStock.toString()}
             onChange={handleStockChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700"
           >
             <option value="">All Products</option>
             <option value="true">In Stock Only</option>

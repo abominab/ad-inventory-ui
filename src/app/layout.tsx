@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Product Inventory Tracker',
-  description: 'Technical Interview Challenge - Product Inventory Management System',
-}
+  description:
+    'Technical Interview Challenge - Product Inventory Management System',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -24,12 +26,18 @@ export default function RootLayout({
                   </h1>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <button className="text-gray-500 hover:text-gray-700">
+                  <Link
+                    href="/dashboard"
+                    className="text-gray-500 hover:text-gray-700"
+                  >
                     Dashboard
-                  </button>
-                  <button className="text-gray-500 hover:text-gray-700">
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="text-gray-500 hover:text-gray-700"
+                  >
                     Products
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -40,5 +48,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }

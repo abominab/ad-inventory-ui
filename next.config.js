@@ -9,6 +9,15 @@ const nextConfig = {
   eslint: {
     dirs: ['src', 'app', 'components', 'lib', 'types'],
   },
-}
+  async redirects() {
+    return [
+      {
+        destination: '/products',
+        permanent: false,
+        source: '/',
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

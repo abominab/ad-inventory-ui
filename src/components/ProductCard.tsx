@@ -12,8 +12,12 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const isOutOfStock = product.stock <= 0
   
-  // BUG: Price formatting is incorrect - doesn't handle edge cases
+  // // BUG: Price formatting is incorrect - doesn't handle edge cases
   const formatPrice = (price: number) => {
+    if (typeof price !== 'number' || isNaN(price) || !isFinite(price) || price < 0) {
+      return 'Price unavailable'
+    }
+
     return `$${price.toFixed(2)}`
   }
   
@@ -40,7 +44,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
-            alt={product.name} // BUG: Alt text should be more descriptive
+            alt={product.description} // // BUG: Alt text should be more descriptive
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -63,8 +67,8 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="text-lg font-semibold text-gray-900 truncate">
             {product.name}
           </h3>
-          {/* BUG: Stock badge is not screen reader friendly */}
-          <span className={`text-xs px-2 py-1 rounded ${getStockColor()}`}>
+          {/* // BUG: Stock badge is not screen reader friendly */}
+          <span className={`text-xs px-2 py-1 rounded ${getStockColor()}`} role="status">
             {getStockStatus()}
           </span>
         </div>
@@ -73,14 +77,12 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.description}
         </p>
         
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-3 text-gray-500">
           <div className="flex flex-col">
-            <span className="text-sm text-gray-500">Category</span>
             <span className="text-sm font-medium">{product.category}</span>
           </div>
           <div className="flex flex-col items-end">
-            <span className="text-sm text-gray-500">Stock</span>
-            <span className="text-sm font-medium">{product.stock}</span>
+            <span className="text-sm font-medium">{`Stock: ${product.stock}`}</span>
           </div>
         </div>
         
@@ -114,19 +116,21 @@ export function ProductCard({ product }: ProductCardProps) {
             disabled={isOutOfStock}
             onClick={() => {
               // BUG: No error handling for this action
+              // TODO: check cart count against stock count
               console.log('Add to cart:', product.id)
             }}
           >
             {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
           </Button>
-          <Button 
+          <Button
+            aria-label='Button: see product details'
             size="sm" 
             variant="outline"
             onClick={() => {
-              // TODO: Implement product details view
-              console.log('View details:', product.id)
+              // Use Next.js router to navigate to the product details page
+              window.location.href = `/products/${product.id}`;
             }}
-            // BUG: Missing accessibility attributes
+            // // BUG: Missing accessibility attributes
           >
             Details
           </Button>
